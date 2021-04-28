@@ -1,0 +1,109 @@
+#######################################
+#                                     #
+#                                     #
+#               Restic                #
+#                                     #
+#                                     #
+#######################################
+# enter the location for your autorestic location. It is recommended that you keep it next to this config file. 
+autorestic_config='/mnt/user/Backup/autorestic.yml'
+
+#######################################
+#                                     #
+#                                     #
+#            Directories              #
+#                                     #
+#                                     #
+#######################################
+# Enter all the directories you want to be backed up. Leave blank if none.
+data_dir='/mnt/user/Backup'
+
+
+#######################################
+#                                     #
+#                                     #
+#             NEXTCLOUD               #
+#                                     #
+#                                     #
+#######################################
+nextcloud_backup='true' # set to false if you don't want to backup nextcloud
+# all the nextcloud directories you want to be backed up. You should include the data directory and the web directory.
+nextcloud_data='/mnt/user/NextcloudData'
+nextcloud_web='/mnt/appdata/nextcloud'
+# enter true if you use postgres for Nextcloud, if you use MySQL or MariaDB enter 'false'
+nextcloud_uses_postgres='false'
+# The name of your nextcloud container
+nextcloud_container='nextcloud'
+
+#######################################
+#                                     #
+#                                     #
+#             Databases               #
+#                                     #
+#                                     #
+#######################################
+# Do you have other databases that you want to backup?
+# In order to backup your databases, you must have mounted your database dumps directory on your database containers under /backup. Failure to do this will mean you won't be able to get your database dumps out of your containers easily.
+mysql_backup='true'
+mysql_container='mysql'
+
+MariaDB_backup='false'
+MariaDB_container='MariaDB'
+
+#location of your database dumps on your Unraid array
+database_dump_dir='/mnt/user/Backup/database_dumps'
+
+# MySQL/MariaDB Database credentials, use root to backup all databases
+db_user=''
+db_passwd=''
+
+
+
+
+# Postgres credentials
+pdb_name='nextclouddb'
+pdb_user='nextcloud'
+
+#######################################
+#                                     #
+#                                     #
+#          Docker/Appdata             #
+#                                     #
+#                                     #
+#######################################
+# Should the script backup your docker containers?
+backup_docker_appdata='true'
+docker_shutdown='true' # should docker containers be shut down before backing up?
+docker_keep_live='ts-dnsserver,binhex-plexpass,home-assistant,NodeRed,swag' # enter the names of your docker containers exactly as they appear in unraid separated with a comma and no spaces
+
+appdata_dir='/mnt/user/appdata'
+# should the script backup your boot usb?
+backup_boot_flash='true'
+
+#######################################
+#                                     #
+#                                     #
+#          Backup Options             #
+#                                     #
+#                                     #
+#######################################
+
+
+# Use cloudflare maintenance mode as discussed here: https://technicalramblings.com/blog/how-to-setup-a-cloudflare-worker-to-show-a-maintenance-page-when-ca-backup-plugin-is-running/
+cloudflare='true'
+# Cloudflare Maintenance Mode
+email=''
+apikey=''
+zone=''
+route=''
+domain_down=''
+domain_up=''
+script_down='maintanance'
+script_up='up'
+
+#Do you want to send a WOL command to your backup destination host?
+power_up='true'
+power_off='true' # shut down the server once the backup is completed
+
+backup_host='' # ip address of your destination server
+backup_mac='' # mac address of your destination sever. Only necessary if you want to send WOL command.

@@ -1,0 +1,91 @@
+locations:
+  nextclouddata:
+    from: /mnt/user/NextcloudData
+    to: 
+      - <enter your backend here>
+    options:
+      forget:
+        keep-last: 5 # always keep at least 5 snapshots
+        keep-weekly: 1 # keep 1 last weekly snapshots
+        keep-monthly: 12 # keep 12 last monthly snapshots
+        keep-yearly: 7 # keep 7 last yearly snapshots
+        keep-within: '4w' # keep snapshots from the last 4 weeks      
+  nextcloudweb:
+    from: /mnt/appdata/nextcloud
+    to: 
+      - <enter your backend here>
+    options:
+      forget:
+        keep-last: 5 # always keep at least 5 snapshots
+        keep-weekly: 1 # keep 1 last weekly snapshots
+        keep-monthly: 12 # keep 12 last monthly snapshots
+        keep-yearly: 7 # keep 7 last yearly snapshots
+        keep-within: '4w' # keep snapshots from the last 4 weeks       
+  backup:
+    from: /mnt/user/Backup
+    to:
+      - <enter your backend here>
+    options:
+      forget:
+        keep-last: 5 # always keep at least 5 snapshots
+        keep-weekly: 1 # keep 1 last weekly snapshots
+        keep-monthly: 12 # keep 12 last monthly snapshots
+        keep-yearly: 7 # keep 7 last yearly snapshots
+        keep-within: '4w' # keep snapshots from the last 4 weeks 
+  appdata:
+    from: /mnt/user/appdata
+    to: <enter your backend here>
+    options:
+      forget:
+        keep-last: 5 # always keep at least 5 snapshots
+        keep-weekly: 1 # keep 1 last weekly snapshots
+        keep-monthly: 12 # keep 12 last monthly snapshots
+        keep-yearly: 7 # keep 7 last yearly snapshots
+        keep-within: '4w' # keep snapshots from the last 4 weeks 
+  databases:
+    from: /mnt/user/Backup/database_dumps
+    to: <enter your backend here>
+    options:
+      forget:
+        keep-last: 5 # always keep at least 5 snapshots
+        keep-weekly: 1 # keep 1 last weekly snapshots
+        keep-monthly: 12 # keep 12 last monthly snapshots
+        keep-yearly: 7 # keep 7 last yearly snapshots
+        keep-within: '4w' # keep snapshots from the last 4 weeks 
+  boot:
+    from: /boot
+    to: 
+      - <enter your backend here>
+    options:
+      forget:
+        keep-last: 5 # always keep at least 5 snapshots
+        keep-weekly: 1 # keep 1 last weekly snapshots
+        keep-monthly: 12 # keep 12 last monthly snapshots
+        keep-yearly: 7 # keep 7 last yearly snapshots
+        keep-within: '4w' # keep snapshots from the last 4 weeks 
+
+backends:
+# s3/minio
+  minio:
+    type: s3
+    path: '<enter your Minio server URL here>'
+    key: 
+    env:
+      AWS_ACCESS_KEY_ID: '<access key>'
+      AWS_SECRET_ACCESS_KEY: '<super secret key>'
+# Local backup to a mounted disk
+  local:
+    type: local
+    path: /mnt/disks/backup # change this to your external backup disk  
+#Backblaze
+  backblaze:
+    type: b2
+    path: 'backblaze_bucketID'
+    # Or With a path
+    # path: 'backblaze_bucketID:/some/path'
+    env:
+      B2_ACCOUNT_ID: 'backblaze_keyID'
+# An already configured rclone backend
+  rclone:
+    type: rclone
+    path: '<rclone path here>' # you must set this up in rclone first
